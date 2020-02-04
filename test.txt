@@ -1,3 +1,4 @@
 Aqui foi utilizado esse notepad para aprendizagem do git.
 
 Já é reconhecido pelo git
+Editei de novo, só para ver como o git funciona
