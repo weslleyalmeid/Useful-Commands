@@ -1,0 +1,3 @@
+Aqui foi utilizado esse notepad para aprendizagem do git.
+
+Já é reconhecido pelo git
