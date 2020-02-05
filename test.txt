@@ -4,3 +4,5 @@ Já é reconhecido pelo git
 Editei de novo, só para ver como o git funciona
 
 gostou do curso? Quer mais ajude com uma doação
+
+teste2
