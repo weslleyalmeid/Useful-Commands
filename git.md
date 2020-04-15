@@ -191,7 +191,7 @@ Para recuperar execute
 	git stash list // mostra todos stash em aberto
 	git stash clear // limpa tudo
 
-PARA GIT ALIAS, OU SEJA ABREVIAR NOME:
+**PARA GIT ALIAS, OU SEJA ABREVIAR NOME:**
 
 	git config --global alias.(atalho que quero) (comando que quero)
 
