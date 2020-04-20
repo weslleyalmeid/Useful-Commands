@@ -77,7 +77,8 @@ Se não adicionou:
 
 Se já adicionou:
 
-	git reset HEAD test.txt
+	git reset HEAD arquivo.formato
+	git reset arquivo.formato
 
 Se Já commitou
 ~~~
