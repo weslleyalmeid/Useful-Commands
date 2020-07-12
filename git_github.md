@@ -104,6 +104,9 @@ primeiro se cria a chave ssh no computador, material está no favorito do google
 Depois para conectar, pega a opção de fazer um push que fica no git, exemplo
 
     git remote add origin git@github.com:weslleyalmeid/nome_repositorio.git
+
+**VERIFICAR QUAL REPOSITÓRIO ESTÁ VINCULADO**
+
 	git remote //mostra nome da conexão
 	git remote -v //mostra mais informações
 
@@ -246,7 +249,3 @@ exemplo:
 para branchs:
 
 	git push origin :nome branch
-
-**VER QUAL URL GITHUB ESTÁ VINCULADO AO GIT**
-
-	git remote -v
