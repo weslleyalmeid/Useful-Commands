@@ -44,34 +44,36 @@ flask routes
 ~~~
 
 ### Estrutura do projeto
+~~~shell
 delivery
-|____static
-| |____js
-| |____css
-| |____img
-|______init__.py
-|____ext
-| |____config
-| |____auth
-| |____cli
-| |____api
-| | |______init__.py
-| |____admin
-| |____site
-| | |______init__.py
-| | |____main.py
-| | |______pycache__
-| | | |____main.cpython-38.pyc
-| | | |______init__.cpython-38.pyc
-| |____db
-|____templates
-| |____about.html
-| |____base.html
-| |____index.html
-|____app.py
-|______pycache__
-| |______init__.cpython-38.pyc
-| |____app.cpython-38.pyc
+    |____static
+    | |____js
+    | |____css
+    | |____img
+    |______init__.py
+    |____ext
+    | |____config
+    | |____auth
+    | |____cli
+    | |____api
+    | | |______init__.py
+    | |____admin
+    | |____site
+    | | |______init__.py
+    | | |____main.py
+    | | |______pycache__
+    | | | |____main.cpython-38.pyc
+    | | | |______init__.cpython-38.pyc
+    | |____db
+    |____templates
+    | |____about.html
+    | |____base.html
+    | |____index.html
+    |____app.py
+    |______pycache__
+    | |______init__.cpython-38.pyc
+    | |____app.cpython-38.pyc
+~~~
 
 ### Templates
 
