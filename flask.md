@@ -1,4 +1,5 @@
-# Flask
+# Flask - Anotações do curso do CodeShow
+[curso - Flask](https://www.twitch.tv/collections/gRe7fj7iGBZJMQ)
 
 ### Ajustes iniciais
 na sheel fazer alguns exports
