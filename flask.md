@@ -44,7 +44,7 @@ flask routes
 ~~~
 
 ### Estrutura do projeto
-~~~shell
+~~~bash
 delivery
     |____static
     | |____js
