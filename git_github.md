@@ -148,7 +148,7 @@ Vantangens:	Poder modificar sem alterar o local principal(master)
 
 **CRIANDO UM BRANCH**
 
-	git checkout -u <nome do branch> // criar um branch
+	git checkout -b <nome do branch> // criar um branch
 	git branch // aparece o nome dos branchs e * selecionado
 	git ckeckout <nome do branch> // seleciono o branch
 	git branch -D <nome do branch> // deleta o branch
