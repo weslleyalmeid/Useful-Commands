@@ -86,3 +86,36 @@ docker container rm CONTAINER_ID
 # ativado
 docker container rm -f CONTAINER_ID
 ```
+
+**Verificando estatísticas do container CPU, I/O, Memória e Redes**
+```bash
+docker container stats [CONTAINER ID]
+```
+é possível simular um stress no container, basta entrar no container bash e deixar stats aberto
+seguir os passdos abaixo e monitar no stats
+```bash
+docker container exec -it [CONTAINER ID] bash
+apt-get update && apt-get install stress
+stress --help
+stress --cpu 1 --vm-bytes 128M --vm 1
+```
+
+**Verificando os processos do container "htop"**
+```bash
+docker container top [CONTAINER ID]
+```
+
+**Limite de memória do container**
+```bash
+docker container run -d -m 128M --cpus 0.5 nginx
+```
+
+**Limite de CPU do container**
+```bash
+# 0.4 de 1 Core
+docker container run --memory 64M --cpus 0.5 nginx
+
+# update de um container existente
+docker container update --memory 64M --cpus 0.4 nginx
+
+```
