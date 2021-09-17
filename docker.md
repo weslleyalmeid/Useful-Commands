@@ -117,5 +117,31 @@ docker container run --memory 64M --cpus 0.5 nginx
 
 # update de um container existente
 docker container update --memory 64M --cpus 0.4 nginx
+```
 
+### 3 - Dockerfile
+
+**Arquivo dockerfile**
+```dockerfile
+# Nome da imagem
+FROM debian 
+
+# criar informacao, metadata
+LABEL app="NOME" 
+# criar variavel
+ENV NOME="NOME_ENV" 
+
+# no momento do build, vai executar comando na imagem
+RUN apt-get update && apt-get install -y stress && apt-get clean 
+
+# executar ação no container
+CMD stress --cpu 1 --vm-bytes 64M --vm 1
+```
+
+**Construindo a imagem**
+```bash
+docker image build -t toskeira:1.0 .
+docker image ls
+docker container run -d toskeira:1.0
+docker container logs -f [CONTAINER ID]
 ```
