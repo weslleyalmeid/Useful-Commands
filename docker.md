@@ -1,5 +1,5 @@
 # Docker
-## LinuxTips
+## LinuxTips - Day 1
 
 ### 1 - Instalação
 
@@ -144,4 +144,13 @@ docker image build -t toskeira:1.0 .
 docker image ls
 docker container run -d toskeira:1.0
 docker container logs -f [CONTAINER ID]
+```
+
+
+## LinuxTips - Day 2
+
+**Volumes do tipo Bind**
+```bash
+mkdir /opt/giropops
+docker container run -it --mount type=bind,src=/opt/giropops,dst=/giropops debian
 ```
