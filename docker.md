@@ -154,3 +154,24 @@ docker container logs -f [CONTAINER ID]
 mkdir /opt/giropops
 docker container run -it --mount type=bind,src=/opt/giropops,dst=/giropops debian
 ```
+
+
+**Volumes compartilhados**
+```bash
+docker volume create dbdados
+
+docker container run -d -p 5432:5432 --name pgsql1 --mount type=volume,src=dbdados,dst=/data -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -e POSTGRESQL_DB=docker kamui/postgresql
+
+docker container run -d -p 5433:5432 --name pgsql2 --mount type=volume,src=dbdados,dst=/data -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -e POSTGRESQL_DB=docker kamui/postgresql
+```
+
+**Backup dos volumes**
+```bash
+mkdir /opt/backup
+
+docker container run -ti --mount type=volume,src=dbdados,dst=/data --mount type=bind,src=/opt/backup,dst=/backup debian tar -cvf /backup/bkp-banco.tar /data
+
+#conferindo
+cd /opt/backup
+tar -xvf bkp-banco.tar
+```
