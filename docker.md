@@ -119,7 +119,7 @@ docker container run --memory 64M --cpus 0.5 nginx
 docker container update --memory 64M --cpus 0.4 nginx
 ```
 
-### 3 - Dockerfile
+### 3 - Dockerfile Básico
 
 **Arquivo dockerfile**
 ```dockerfile
@@ -149,6 +149,8 @@ docker container logs -f [CONTAINER ID]
 
 ## LinuxTips - Day 2
 
+### 1 - Volumes
+
 **Volumes do tipo Bind**
 ```bash
 mkdir /opt/giropops
@@ -174,4 +176,276 @@ docker container run -ti --mount type=volume,src=dbdados,dst=/data --mount type=
 #conferindo
 cd /opt/backup
 tar -xvf bkp-banco.tar
+```
+
+**Exemplos de comandos**
+```bash
+ docker container run -ti --mount type=bind,src=/volume,dst=/volume ubuntu
+ docker container run -ti --mount type=bind,src=/root/primeiro_container,dst=/volume ubuntu
+ docker container run -ti --mount type=bind,src=/root/primeiro_container,dst=/volume,ro ubuntu
+ docker volume create giropops
+ docker volume rm giropops
+ docker volume inspect giropops
+ docker volume prune
+ docker container run -d --mount type=volume,source=giropops,destination=/var/opa  nginx
+ docker container create -v /data --name dbdados centos
+ docker run -d -p 5432:5432 --name pgsql1 --volumes-from dbdados -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -e POSTGRESQL_DB=docker kamui/postgresql
+ docker run -d -p 5433:5432 --name pgsql2 --volumes-from dbdados -e  POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -e POSTGRESQL_DB=docker kamui/postgresql
+ docker run -ti --volumes-from dbdados -v $(pwd):/backup debian tar -cvf /backup/backup.tar /data
+```
+
+### 2 - Dockerfile
+**Dockerfile inicial**
+```bash
+# Buscar ou baixar imagem
+FROM debian
+
+# Executar comandos todos na mesma camada, contatenado com &&
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+# Criando variaveis de ambiente 
+ENV APACHE_LOCK_DIR="/var/lock"
+ENV APACHE_PID_FILE="/var/run/apache2.pid"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_LOG_DIR="/var/log/apache2"
+
+# Colocar descricao
+LABEL description="Webserver"
+
+# Criando volume no container
+VOLUME /var/www/html/
+
+# Porta de comunicação do container
+EXPOSE 80
+```
+
+**Construindo a imagem dockerfile**
+```bash
+# docker imagem build -tag name:version .
+docker image build -t meu_apache:1.0.0 .
+```
+
+```bash
+# acessando
+docker container run -it meu_apache:1.0.0
+
+# verificando processos em execucao
+ps -ef
+
+# checando se apache esta instalado
+dkpg -l | grep apache
+```
+O apache não inicializa já em execução, com isso, será necessário adequar um novo Dockerfile.
+
+**Dockerfile com programa em execucao**
+```bash
+# Buscar ou baixar imagem
+FROM debian
+
+# Executar comandos todos na mesma camada, contatenado com &&
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+# Criando variaveis de ambiente 
+ENV APACHE_LOCK_DIR="/var/lock"
+ENV APACHE_PID_FILE="/var/run/apache2.pid"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_LOG_DIR="/var/log/apache2"
+
+# Colocar descricao
+LABEL description="Webserver"
+
+# Criando volume no container
+VOLUME /var/www/html/
+
+# Porta de comunicação do container
+EXPOSE 80
+
+# Principal processo do container em modo exec != modo shell
+ENTRYPOINT ["/usr/sbin/apachectl"]
+
+# Se nao existir ENTRYPOINT add o caminho no CMD, esse modo e chamado modo shell
+# CMD /usr/sbin/apachectl -D FOREGROUND
+# CMD e um comando, esta passando paramentros para o principal processo do container
+CMD ["-D", "FOREGROUND"]
+```
+
+**Construindo nova imagem dockerfile**
+```bash
+# docker imagem build -tag name:version .
+docker image build -t meu_apache:2.0.0 .
+```
+
+```bash
+# acessando em modo deamon, pois esta em foreground
+docker container run -d -p 8080:80  meu_apache:2.0.0
+```
+
+**Dockerfile COPY arquivo local para container**
+```bash
+# Buscar ou baixar imagem
+FROM debian
+
+# Executar comandos todos na mesma camada, contatenado com &&
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+# Criando variaveis de ambiente 
+ENV APACHE_LOCK_DIR="/var/lock"
+ENV APACHE_PID_FILE="/var/run/apache2.pid"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_LOG_DIR="/var/log/apache2"
+
+# Copiar arquivo do local para container
+COPY index.html /var/www/html/
+
+# Colocar descricao
+LABEL description="Webserver"
+LABEL version="1.0.0"
+# Criando volume no container
+VOLUME /var/www/html/
+
+# Porta de comunicação do container
+EXPOSE 80
+
+# Principal processo do container em modo exec != modo shell
+ENTRYPOINT ["/usr/sbin/apachectl"]
+
+# Se nao existir ENTRYPOINT add o caminho no CMD, esse modo e chamado modo shell
+# CMD /usr/sbin/apachectl -D FOREGROUND
+# CMD e um comando, esta passando paramentros para o principal processo do container
+CMD ["-D", "FOREGROUND"]
+
+```
+
+**Construindo nova imagem dockerfile**
+```bash
+# docker imagem build -tag name:version .
+docker image build -t meu_apache:3.0.0 .
+```
+
+```bash
+# acessando em modo deamon, pois esta em foreground
+docker container run -d -p 8000:80 meu_apache:3.0.0
+```
+
+
+**Dockerfile ADD arquivo, WORKDIR e USER**
+```bash
+# Buscar ou baixar imagem
+FROM debian
+
+# Executar comandos todos na mesma camada, contatenado com &&
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+# Criando variaveis de ambiente 
+ENV APACHE_LOCK_DIR="/var/lock"
+ENV APACHE_PID_FILE="/var/run/apache2.pid"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_LOG_DIR="/var/log/apache2"
+
+# Copiar arquivo do local para container
+# COPY index.html /var/www/html/
+
+# ADD parecido com copy, add faz o download, add e melhor que copy
+ADD index.html /var/www/html/
+
+# Colocar descricao
+LABEL description="Webserver"
+LABEL version="1.0.0"
+
+# executando em modo usuario especifico e nao root
+USER www-data
+
+# diretorio default ao ser iniado, vai cair direto do workdir
+WORKDIR /var/www/html/
+
+# Criando volume no container
+VOLUME /var/www/html/
+
+# Porta de comunicação do container
+EXPOSE 80
+
+# Principal processo do container em modo exec != modo shell
+ENTRYPOINT ["/usr/sbin/apachectl"]
+
+# Se nao existir ENTRYPOINT add o caminho no CMD, esse modo e chamado modo shell
+# CMD /usr/sbin/apachectl -D FOREGROUND
+# CMD e um comando, esta passando paramentros para o principal processo do container
+CMD ["-D", "FOREGROUND"]
+
+```
+
+**Construindo nova imagem dockerfile**
+```bash
+# docker imagem build -tag name:version .
+docker image build -t meu_apache:4.0.0 .
+```
+
+```bash
+# acessando em modo deamon, pois esta em foreground
+docker container run -d -p 8008:80 meu_apache:4.0.0
+
+# checando e nao consta, verificando erro exit(1)
+docker container ls -a
+
+# verificando log do container
+docker container logs -f  ebd6
+```
+Foi verificado no log que o usuario não tem permissão para acessar alguns diretórios, alterado Dockerfile alterando as permissões do usuário.
+
+**Dockerfile ADD arquivo, WORKDIR e USER com Alteracao de permissao de usuario**
+```bash
+# Buscar ou baixar imagem
+FROM debian
+
+# Executar comandos todos na mesma camada, contatenado com &&
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+# Alterando permissao do usuario
+RUN chown www-data:www-data /var/lock/ && chown www-data:www-data /var/run/ && chown www-data:www-data /var/log/
+
+# Criando variaveis de ambiente 
+ENV APACHE_LOCK_DIR="/var/lock"
+ENV APACHE_PID_FILE="/var/run/apache2.pid"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_LOG_DIR="/var/log/apache2"
+
+# Copiar arquivo do local para container
+# COPY index.html /var/www/html/
+
+# ADD parecido com copy, add faz o download, add e melhor que copy
+ADD index.html /var/www/html/
+
+# Colocar descricao
+LABEL description="Webserver"
+LABEL version="1.0.0"
+
+# executando em modo usuario especifico e nao root
+USER www-data
+
+# diretorio default ao ser iniado, vai cair direto do workdir
+WORKDIR /var/www/html/
+
+# Criando volume no container
+VOLUME /var/www/html/
+
+# Porta de comunicação do container
+EXPOSE 80
+
+# Principal processo do container em modo exec != modo shell
+ENTRYPOINT ["/usr/sbin/apachectl"]
+
+# Se nao existir ENTRYPOINT add o caminho no CMD, esse modo e chamado modo shell
+# CMD /usr/sbin/apachectl -D FOREGROUND
+# CMD e um comando, esta passando paramentros para o principal processo do container
+CMD ["-D", "FOREGROUND"]
+```
+
+```bash
+# acessando em modo deamon, pois esta em foreground
+docker container run -d -p 8008:80 meu_apache:4.0.0
 ```
