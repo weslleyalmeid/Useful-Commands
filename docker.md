@@ -85,6 +85,9 @@ docker container logs -f CONTAINER_ID
 docker container rm CONTAINER_ID
 # ativado
 docker container rm -f CONTAINER_ID
+
+#deletando todos containers
+docker container rm -f $(docker container ls -a -q)
 ```
 
 **Verificando estatísticas do container CPU, I/O, Memória e Redes**
@@ -448,4 +451,60 @@ CMD ["-D", "FOREGROUND"]
 ```bash
 # acessando em modo deamon, pois esta em foreground
 docker container run -d -p 8008:80 meu_apache:4.0.0
+```
+
+**Dockerfile- MultiStage 1**
+```bash
+# baixando a imagem Golang
+FROM golang
+
+# initial default /app
+WORKDIR /app
+
+# copiando tudo no nivel absoluto para o /app
+ADD . /app
+
+# executando o codigo que ira compilar o meugo
+RUN go mod init meugo && go build -o meugo
+
+# imagem com meu_go executando
+ENTRYPOINT ./meugo
+
+```
+
+```bash
+docker image build -t meugo:1.0 .
+docker container run -it meugo:1.0
+```
+
+**Dockerfile- MultiStage 2**
+```bash
+# baixando a imagem Golang e colocando Alias
+FROM golang AS buildando
+
+# initial default /app
+WORKDIR /app
+
+# copiando tudo no nivel absoluto para o /app
+ADD . /app
+
+# executando o codigo que ira compilar o meugo
+RUN go mod init meugo && go build -o meugo
+
+
+#Novo from pra testar multistage
+FROM alpine
+
+WORKDIR /abacate
+#copiando arquivo do from superior buildado
+COPY --from=buildando /app/meugo /abacate/
+
+
+# imagem com meu_go executando
+ENTRYPOINT ./meugo
+```
+
+```bash
+docker image build -t meugo:2.0 .
+docker container run -it meugo:2.0
 ```
