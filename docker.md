@@ -515,10 +515,9 @@ docker container run -it meugo:2.0
 FROM debian
 
 # Executar comandos todos na mesma camada, contatenado com &&
-RUN apt-get update && apt-get install -y apache2 && apt-get clean
-
+RUN apt-get update && apt-get install -y apache2 curl
 # Alterando permissao do usuario
-RUN chown www-data:www-data /var/lock/ && chown www-data:www-data /var/run/ && chown www-data:www-data /var/log/
+# RUN chown www-data:www-data /var/lock/ && chown www-data:www-data /var/run/ && chown www-data:www-data /var/log/
 
 # Criando variaveis de ambiente 
 ENV APACHE_LOCK_DIR="/var/lock"
@@ -534,7 +533,6 @@ ENV APACHE_LOG_DIR="/var/log/apache2"
 ADD index.html /var/www/html/
 
 #Checando o servico
-Healthcheck
 HEALTHCHECK --interval=1m --timeout=3s \
 CMD curl -f http://localhost/ || exit 1
 
@@ -543,7 +541,7 @@ LABEL description="Webserver"
 LABEL version="1.0.0"
 
 # executando em modo usuario especifico e nao root
-USER www-data
+# USER www-data
 
 # diretorio default ao ser iniado, vai cair direto do workdir
 WORKDIR /var/www/html/
@@ -567,5 +565,87 @@ CMD ["-D", "FOREGROUND"]
 docker image build -t meu_apache:5.0.0 .
 
 # acessando em modo deamon, pois esta em foreground
-docker container run -d -p 8000:80 meu_apache:5.0.0
+docker container run -d -p 8080:80 meu_apache:5.0.0
+```
+
+
+**Dockerfile - Docker commit**
+Criar uma imagem do container
+```bash
+# executando container
+docker container run -ti ubuntu
+# instalando vim e curl
+apt-get update && apt-get install apt-file -y && apt-file update && apt-get install vim curl -y
+
+# sair com ctrl + p + q = para continuar em execucao
+
+# docker commit -m "msg" ID_CONTAINER
+docker commit -m "ubuntu com vim e curl" 54711b4b7652
+
+# docker image tag ID_IMAGEM name:version
+docker image tag 61559e0dbbd2 ubuntu_vim_curl:1.0
+
+```
+
+**Resumo dos comandos**
+```bash
+ADD => Copia novos arquivos, diretórios, arquivos TAR ou arquivos remotos e os adicionam ao filesystem do container;
+
+CMD => Executa um comando, diferente do RUN que executa o comando no momento em que está "buildando" a imagem, o CMD executa no início da execução do container;
+
+LABEL => Adiciona metadados a imagem como versão, descrição e fabricante;
+
+COPY => Copia novos arquivos e diretórios e os adicionam ao filesystem do container;
+
+ENTRYPOINT => Permite você configurar um container para rodar um executável, e quando esse executável for finalizado, o container também será;
+
+ENV => Informa variáveis de ambiente ao container;
+
+EXPOSE => Informa qual porta o container estará ouvindo;
+
+FROM => Indica qual imagem será utilizada como base, ela precisa ser a primeira linha do Dockerfile;
+
+MAINTAINER => Autor da imagem; 
+
+RUN => Executa qualquer comando em uma nova camada no topo da imagem e "commita" as alterações. Essas alterações você poderá utilizar nas próximas instruções de seu Dockerfile;
+
+USER => Determina qual o usuário será utilizado na imagem. Por default é o root;
+
+VOLUME => Permite a criação de um ponto de montagem no container;
+
+WORKDIR => Responsável por mudar do diretório / (raiz) para o especificado nele;
+```
+
+### 3 - Dockerhub
+
+**Dockerhub**
+```bash
+# docker image tag ID_IMAGE ID_DOCKERHUB/name_image:version
+docker image tag 312b52c65964 weslleyalmeid/meu_apache:1.0.0
+
+# realizar login, logou para sair
+docker login
+
+# subir imagem para dockerhub
+# docker push ID_DOCKERHUB/name_image:version
+docker push weslleyalmeid/meu_apache:1.0.0
+
+# baixar imagem do dockerhub 
+docker pull weslleyalmeid/meu_apache
+```
+
+### 4 -  Docker Registry
+Registry serve para disponibilizar sua imagem em servidor proprietário
+
+```bash
+docker container run -d -p 5000:5000 --restart=always --name registry registry:2
+
+# docker image tag ID_IMAGE IP:PORT/name_image:version
+docker image tag 312b52c65964 localhost:5000/meu_apache:1.0.0
+
+# realizado o push para o registry
+docker image push localhost:5000/meu_apache:1.0.0
+
+# baixando a imagem
+docker container run -d localhost:5000/meu_apache:1.0.0
 ```
