@@ -453,7 +453,7 @@ CMD ["-D", "FOREGROUND"]
 docker container run -d -p 8008:80 meu_apache:4.0.0
 ```
 
-**Dockerfile- MultiStage 1**
+**Dockerfile - MultiStage 1**
 ```bash
 # baixando a imagem Golang
 FROM golang
@@ -477,7 +477,7 @@ docker image build -t meugo:1.0 .
 docker container run -it meugo:1.0
 ```
 
-**Dockerfile- MultiStage 2**
+**Dockerfile - MultiStage 2**
 ```bash
 # baixando a imagem Golang e colocando Alias
 FROM golang AS buildando
@@ -507,4 +507,65 @@ ENTRYPOINT ./meugo
 ```bash
 docker image build -t meugo:2.0 .
 docker container run -it meugo:2.0
+```
+
+**Dockerfile - Deep Dive, Healthcheck e Docker commit**
+```bash
+# Buscar ou baixar imagem
+FROM debian
+
+# Executar comandos todos na mesma camada, contatenado com &&
+RUN apt-get update && apt-get install -y apache2 && apt-get clean
+
+# Alterando permissao do usuario
+RUN chown www-data:www-data /var/lock/ && chown www-data:www-data /var/run/ && chown www-data:www-data /var/log/
+
+# Criando variaveis de ambiente 
+ENV APACHE_LOCK_DIR="/var/lock"
+ENV APACHE_PID_FILE="/var/run/apache2.pid"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_LOG_DIR="/var/log/apache2"
+
+# Copiar arquivo do local para container
+# COPY index.html /var/www/html/
+
+# ADD parecido com copy, add faz o download, add e melhor que copy
+ADD index.html /var/www/html/
+
+#Checando o servico
+Healthcheck
+HEALTHCHECK --interval=1m --timeout=3s \
+CMD curl -f http://localhost/ || exit 1
+
+# Colocar descricao
+LABEL description="Webserver"
+LABEL version="1.0.0"
+
+# executando em modo usuario especifico e nao root
+USER www-data
+
+# diretorio default ao ser iniado, vai cair direto do workdir
+WORKDIR /var/www/html/
+
+# Criando volume no container
+VOLUME /var/www/html/
+
+# Porta de comunicação do container
+EXPOSE 80
+
+# Principal processo do container em modo exec != modo shell
+ENTRYPOINT ["/usr/sbin/apachectl"]
+
+# Se nao existir ENTRYPOINT add o caminho no CMD, esse modo e chamado modo shell
+# CMD /usr/sbin/apachectl -D FOREGROUND
+# CMD e um comando, esta passando paramentros para o principal processo do container
+CMD ["-D", "FOREGROUND"]
+```
+
+```bash
+docker image build -t meu_apache:5.0.0 .
+
+# acessando em modo deamon, pois esta em foreground
+docker container run -d -p 8000:80 meu_apache:5.0.0
 ```
