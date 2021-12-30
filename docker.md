@@ -518,7 +518,7 @@ FROM debian
 RUN apt-get update && apt-get install -y apache2 && apt-get clean
 
 # Alterando permissao do usuario
-RUN chown www-data:www-data /var/lock/ && chown www-data:www-data /var/run/ && chown www-data:www-data /var/log/
+# RUN chown www-data:www-data /var/lock/ && chown www-data:www-data /var/run/ && chown www-data:www-data /var/log/
 
 # Criando variaveis de ambiente 
 ENV APACHE_LOCK_DIR="/var/lock"
@@ -543,7 +543,7 @@ LABEL description="Webserver"
 LABEL version="1.0.0"
 
 # executando em modo usuario especifico e nao root
-USER www-data
+# USER www-data
 
 # diretorio default ao ser iniado, vai cair direto do workdir
 WORKDIR /var/www/html/
