@@ -649,3 +649,91 @@ docker image push localhost:5000/meu_apache:1.0.0
 # baixando a imagem
 docker container run -d localhost:5000/meu_apache:1.0.0
 ```
+
+## LinuxTips - Day 3
+
+### 1 - Docker Machine (Deprecated)
+
+**Instalação**
+```bash
+ 4809  curl -L https://github.com/docker/machine/releases/download/v0.16.1/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine
+ 4810  chmod +x /tmp/docker-machine
+ 4811  sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+```
+
+**Criar ambiente e alguns comandos básicos**
+```bash
+docker-machine create --driver virtualbox giropops
+
+# verifica as informacoes de ambiente 
+docker-machine env giropops
+# carrega informacoes
+eval $(docker-machine env giropops)
+
+# acessa a maquina docker
+docker-machine ssh giropops
+docker-machine stop giropops
+docker-machine start giropops
+docker-machine status giropops
+
+# deleta as informacoes
+docker-machine env -u
+
+# delete a imagem
+docker-machine rm giropops
+```
+
+### 2 - Docker Swarm
+Em um ambiente de gerenciamento e orquestração, é interessante a quantidade de nós de gerencia em um total
+de 51%, ou seja, é melhor ter um número ímpar de nós, resumindo, é necessário mais de 50% dos managers estável
+para o cluster ficar saudável.
+
+**Criar ambiente e alguns comandos básicos**
+```bash
+# iniciar e copiar o token de nós no hosts externos.
+docker swarm init
+
+# iniciar com outra interface de rede
+docker swarm init --advertise-addr=ip_cluster
+
+# ver os nós
+docker node ls
+
+# promover os nós para possíveis managers
+docker node promote name_node
+
+# rebaixar os nós
+docker node demote name_node
+
+
+# retirar nó do cluster, manager -f
+docker swarm leave
+docker swarm leave -f
+
+# get token
+docker swarm join-token worker
+docker swarm join-token manager
+
+# rotacionar token
+docker swarm join-token --rotate worker
+docker swarm join-token --rotate manager
+```
+
+**Docker Swarm - Node**
+```bash
+# criar 3 servicos no clusters
+docker service create --name webserver --replicas 3 -p 8080:80 nginx
+
+# aceitar ou nao novos containers
+# pause =  nao aceita novos containers
+# active(default) = ativar o recebimento de container
+docker node update --availability pause name_node
+
+docker service scale webserver=10
+```
+
+**Docker Swarm - Services**
+```bash
+
+```
+
