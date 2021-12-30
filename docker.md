@@ -734,6 +734,25 @@ docker service scale webserver=10
 
 **Docker Swarm - Services**
 ```bash
+# criar 3 container e bindar portar em todos nós do cluters
+docker service create --name giropops --replicas 3 -p 8080:80 nginx
 
+# checar o servico
+docker service inspect giropops --pretty
+
+# scale up and down
+docker service scale giropops=10
+
+# checar servicos
+docker service ps giropops
+
+# log de todos os servicos
+docker service logs -f giropops
+```
+
+**Docker Swarm - Services e Volume**
+```bash
+# remover servico
+docker service rm giropops
 ```
 
