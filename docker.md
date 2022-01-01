@@ -830,3 +830,38 @@ docker service update --network-add strigus nginx1
  
  docker service update <OPCOES> <Nome_Service> 
 ```
+
+
+## LinuxTips - Day 4
+
+### 1 - Secrets
+
+**Comandos básicos**
+```bash
+# passando a secret via terminal
+echo -n "teste teste" | docker secret create secret1 -
+
+docker secret ls
+docker secret inspect secret1
+
+# passando secret via arquivo
+docker secret create name_secret file
+
+# apagar secret
+docker secret rm name_secret
+
+# vinculando secret no serviço
+# docker service create --name name_service -p 8080:80 --secret name_secret name_image 
+docker service create --name nginx -p 8080:80 --secret secret2-arquivo nginx 
+
+# para adicionar ou remover secret
+docker service update --secret-add name_secret name_service
+docker service update --secret-rm name_secret name_service
+
+# secret com user e modo
+docker service create --detach=false --name app --secret source=db_pass,target=password,uid=2000,gid=3000,mode=0400 minha_app:1.0
+
+ls -lhart /run/secrets/
+
+docker service update --secret-rm db_pass --detach=false --secret-add source=db_pass_1,target=password app
+```
