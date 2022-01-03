@@ -153,6 +153,7 @@ docker container logs -f [CONTAINER ID]
 ## LinuxTips - Day 2
 
 ### 1 - Volumes
+Os volumes na máquina linux fica em /var/lib/docker
 
 **Volumes do tipo Bind**
 ```bash
@@ -864,4 +865,128 @@ docker service create --detach=false --name app --secret source=db_pass,target=p
 ls -lhart /run/secrets/
 
 docker service update --secret-rm db_pass --detach=false --secret-add source=db_pass_1,target=password app
+```
+
+### 2 - Docker compose
+Docker compose é utilizado quando se pensa em deploy, já consta deixa imagem, serviços, redes e volumes todos prontos, enquanto o dockerfile tem como objetivo a construção da imagem.
+
+
+<p style="color:red">
+Definições: <br>
+Services: Conjunto de 1 ou mais containers.
+<br>
+Stack: Conjunto de 1 ou mais services.
+</p>
+
+**Docker compose 1**
+```yaml
+version: "3.7"
+
+services:
+    web:
+        image: nginx
+        deploy:
+          replicas: 5
+          resources:
+            limits:
+              cpus: "0.1"
+              memory: 50M
+          restart_policy:
+            condition: on-failure
+        ports:
+          - "8080:80"
+        networks:
+          - webserver
+
+networks:
+    webserver:
+```
+
+**Compose, Stack e Services**
+```bash
+# docker stack deploy -c docker-compose.yaml name_stack
+docker stack deploy -c docker-compose.yaml giropops
+
+# checando stack
+docker stack ps giropops
+
+# checando servicos
+docker stack services giropops
+
+# removendo stack
+docker stack rm giropops
+```
+
+**Docker compose 2**
+```yaml
+version: '3'
+services:
+    db:
+        image: mysql:5.7
+        volumes:
+            - db_data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: somewordpress
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+
+    wordpress:
+        depends_on:
+            - db
+        image: wordpress:latest
+        ports:
+            - "8000:80"
+        environment:
+            WORDPRESS_DB_HOST: db:3306
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+
+volumes:
+    db_data:
+```
+
+
+**Docker compose 3**
+```yaml
+version: "3.7"
+services:
+    web:
+        image: nginx
+        deploy:
+            placement:
+                constraints:
+                    - node.labels.dc == UK
+            replicas: 5
+            resources:
+                limits:
+                    cpus: "0.1"
+                    memory: 50M
+            restart_policy:
+                condition: on-failure
+        ports:
+            - "8080:80"
+        networks:
+            - webserver
+
+    visualizer:
+        image: dockersamples/visualizer:stable
+        ports:
+            - "8888:8080"
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        deploy:
+            placement:
+                constraints: [node.role == manager]
+        networks:
+            - webserver
+
+networks:
+    webserver:
+```
+
+É necessário atualizar a label de um dos nós.
+```bash
+# docker node update --label-add dc=UK name_nó
+docker node update --label-add dc=UK pop-os 
 ```
