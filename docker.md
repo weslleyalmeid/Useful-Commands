@@ -1096,3 +1096,8 @@ networks:
 volumes:
     db-data:
 ```
+
+
+#### Referências
+[Descomplicando Docker Curso - LinuxTips](https://www.linuxtips.io/products/descomplicando-o-docker?gclid=Cj0KCQiA_c-OBhDFARIsAIFg3ewUHeDXMlT8XVumEg1HyDnOHmdsh8eNaV1Vl2ky14gLaWHLk42eDeoaAq2QEALw_wcB)
+[Descomplicando Docker Livro - LinuxTips](https://livro.descomplicandodocker.com.br/)
