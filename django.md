@@ -1,7 +1,7 @@
-# Djando 
+# Django 
 
 
-## Instalando Djando
+## Instalando Django
 ```bash
     pip install django
 ```
@@ -15,7 +15,7 @@
 - **django-admin.py** é o utilitário de linha de comando do Django para tarefas administrativas
 - **manager**
     - É um wrapper em volta do django-admin.py
-    - Ele delega tarefas para o djando-admin.py
+    - Ele delega tarefas para o django-admin.py
     - Responsável por colocar o pacote do projeto sys.path
     - Ele define a variável de ambiente DJANGO_SETTINGS_MODULE que então aponta para o arquivo settings.py
 - **WSGI**
