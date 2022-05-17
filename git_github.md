@@ -290,3 +290,8 @@ git log --graph --oneline --all
 git log --graph --decorate --pretty=oneline --abbrev-commit
 git log --oneline --decorate --all --graph
 ```
+
+**Verificar arquivos ignorados pelo .gitignore**
+```sh
+git status --ignored
+```
