@@ -19,4 +19,9 @@ gcloud auth application-default login
 
 # definir projeto
 gcloud config set project project_id
+
+
+# listar projetos
+gcloud projects list
+gcloud projects list --sort-by=projectId --limit=5
 ```
