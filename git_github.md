@@ -264,7 +264,7 @@ git reset --hard a0d3fe6
 
 
 **Verificar se existe alteração no repo remoto**
-[ref - sobre branch origin/main]((https://stackoverflow.com/questions/18137175/in-git-what-is-the-difference-between-origin-master-vs-origin-master))
+[ref - sobre branch origin/main](https://stackoverflow.com/questions/18137175/in-git-what-is-the-difference-between-origin-master-vs-origin-master)
 ```sh
 # git fetch name_remote/name_branch, 
 # lembrando como origin/main é uma branch mesclado a branch origin e main
@@ -292,6 +292,7 @@ git log --oneline --decorate --all --graph
 ```
 
 **Verificar arquivos ignorados pelo .gitignore**
+[ref - check ignore files](https://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore)
 ```sh
 git status --ignored
 ```
