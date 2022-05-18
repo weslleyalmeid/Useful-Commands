@@ -1,6 +1,6 @@
-### Pandas
+## Pandas
 
-#### Loc
+### Loc
 [ref - loc](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html)
 ```py
 
