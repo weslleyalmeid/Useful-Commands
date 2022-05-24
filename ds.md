@@ -14,3 +14,13 @@ df.loc[(df['name_col'] == value) & (df['Data'].between(data_low, data_hight))]
 # atribuir valor
 df.loc[df['name_col'] == 0, ['name_col', 'name_col']] = 0
 ```
+
+
+
+### GroupBy
+[ref - groupby agg](https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.core.groupby.DataFrameGroupBy.agg.html)
+```py
+df.groupby('A').agg(['min', 'max'])
+df.groupby('A').B.agg(['min', 'max'])
+df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
+```
