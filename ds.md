@@ -24,3 +24,11 @@ df.groupby('A').agg(['min', 'max'])
 df.groupby('A').B.agg(['min', 'max'])
 df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
 ```
+
+
+### Tuplas
+```py
+# transformar colunas em tuplas 
+df.apply(tuple, axis=1)
+df['new_col'] = list(zip(df.lat, df.long))
+```
