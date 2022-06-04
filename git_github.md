@@ -296,3 +296,8 @@ git log --oneline --decorate --all --graph
 ```sh
 git status --ignored
 ```
+
+**Verificar arquivos não trackeados**
+[ref - check ignore files](https://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore)
+```sh
+git status -uall
