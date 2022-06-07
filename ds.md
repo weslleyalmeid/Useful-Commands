@@ -48,3 +48,16 @@ isort -rc .
 # remove imports nao utilizados
 autoflake -r --in-place --remove-unused-variables .
 ```
+
+## Diretórios
+```py
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(os.path.abspath('.'))
+GROOT_DIR = os.path.dirname(os.path.abspath('..'))
+
+# diretorio dinamico
+TABLE_DIR = os.path.join(dest, "{table_name}", f"process_date={process_date}")
+TABLE_DIR.format(table_name="tweet")
+
+
+```
