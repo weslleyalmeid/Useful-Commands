@@ -32,3 +32,19 @@ df.groupby('A').agg({'B': ['min', 'max'], 'C': 'sum'})
 df.apply(tuple, axis=1)
 df['new_col'] = list(zip(df.lat, df.long))
 ```
+
+## Diversos
+### isort
+```sh
+# re-order os imports no arquivo
+isort -rc name_file.py
+
+# re-order todos os imports de todos os arquivos do diretorio
+isort -rc .
+```
+
+### Flake
+```sh
+# remove imports nao utilizados
+autoflake -r --in-place --remove-unused-variables .
+```
