@@ -53,12 +53,13 @@ gcloud sql import csv my-database=movielens --table=ratings
       CONNECTION_ID
 ```
 
-TYPE: o tipo da fonte de dados externa.
-PROPERTIES: os parâmetros da conexão criada no formato JSON. Por exemplo, --properties='{"param":"param_value"}'. Para criar um recurso de conexão, é necessário fornecer os parâmetros instanceID, database e type.
-CREDENTIALS: os parâmetros username e password.
-PROJECT_ID: o ID do projeto;
-LOCATION: a região em que a instância do Cloud SQL está localizada.
-CONNECTION_ID: o identificador de conexão
+- TYPE: o tipo da fonte de dados externa.
+- PROPERTIES: os parâmetros da conexão criada no formato JSON.    
+  - Por exemplo, --properties='{"param":"param_value"}'. Para criar um recurso de conexão, é necessário fornecer os parâmetros instanceID, database e type.
+- CREDENTIALS: os parâmetros username e password.
+- PROJECT_ID: o ID do projeto;
+- LOCATION: a região em que a instância do Cloud SQL está localizada.
+- CONNECTION_ID: o identificador de conexão
 
 Exemplo de query
 ```sql
