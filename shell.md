@@ -191,3 +191,19 @@ comando pipe |
 
 	cat arquivo | tr a Z [joga arquivo como entrada para o tr onde substitui a por Z]
 	tr 'a' 'Z' < alunos.txt 
+
+## Copiar do diretório
+```sh
+# copiar pwd para o buffer do ctrl+c
+echo ${PWD} | xclip -selection clipboard
+
+# copiar dados do arquivo
+xclip -i -sel copy 'file.csv'
+
+# copiar diretorio incluindo filename
+readlink -f filename.csv
+
+# copiar filename path para o buffer do ctrl+c
+readlink -f filename.csv | xclip -selection clipboard
+
+```
