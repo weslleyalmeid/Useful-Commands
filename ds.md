@@ -59,12 +59,3 @@ GROOT_DIR = os.path.dirname(os.path.abspath('..'))
 TABLE_DIR = os.path.join(dest, "{table_name}", f"process_date={process_date}")
 TABLE_DIR.format(table_name="tweet")
 ```
-
-## Copiar do diretório
-```sh
-# copiar pwd para o buffer do ctrl+c
-echo ${PWD} | xclip -selection clipboard
-
-# copiar dados do arquivo
-xclip -i -sel copy 'file.csv'
-```
