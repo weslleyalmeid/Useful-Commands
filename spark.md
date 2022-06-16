@@ -26,9 +26,9 @@ spark.read.format("csv").load(objeto_recomendacao, inferSchema="true", header="t
 # ler csv direto com algumas opcoes
 spark.read.option("header",True).csv('/home/weslley/Desktop/squad_keras/data/external')
 spark.read.options(delimiter=',').csv("path_file")
-spark.readoption("header",True).option("inferSchema",True).option(delimiter=',').csv("path")
 
 
+spark.read.option("header",True).option("inferSchema",True).option('delimeter',',').csv(path).toPandas()
 spark.read.option('inferSchema', True).csv(path, header=True, sep=',').toPandas()
 
 
