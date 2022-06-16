@@ -88,7 +88,7 @@ tweet_df.rdd.getNumPartitions()
 
 
 
-### Querys
+### 7 - Querys
 
 **Exemplo 1**
 ```py
