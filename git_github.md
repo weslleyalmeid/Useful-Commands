@@ -310,11 +310,27 @@ git status -uall
 ```
 
 
-**Criar submodulos**
+**Submodulos**
 ```sh
-touch .gitmodules
+# criar submodulos
+touch .gitmodule
 git submodule add repo_clone
 git add repo_name
 git commit -m 'blabla'
 git push origin branch
+
+
+# clonar repo com submodulos
+git clone --recursive repo_url
+
+# pull
+git pull --recurse-submodules
+
+# para não especificar flag submodelus
+git config submodule.recurse true
+
+# inicializar submodule
+git update submodule --init 
 ```
+
+
