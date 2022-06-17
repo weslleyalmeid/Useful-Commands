@@ -260,6 +260,12 @@ para branchs:
 git reflog
 # onde a0d3fe6 representa a hash do estado anterior
 git reset --hard a0d3fe6
+
+# se quiser voltar ao penúltimo commit
+git reset --hard HEAD~1
+
+# volta ao estado anterior e mantem a alteração
+git reset mixed HEAD~1
 ```
 
 
