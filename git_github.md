@@ -307,3 +307,14 @@ git status --ignored
 [ref - check ignore files](https://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore)
 ```sh
 git status -uall
+```
+
+
+**Criar submodulos**
+```sh
+touch .gitmodules
+git submodule add repo_clone
+git add repo_name
+git commit -m 'blabla'
+git push origin branch
+```
