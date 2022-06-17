@@ -207,3 +207,18 @@ readlink -f filename.csv
 readlink -f filename.csv | xclip -selection clipboard
 
 ```
+
+## Split em arquivos
+```sh
+
+# quantidade de linhas
+wc -l name_file
+
+# split pela quantidade de linhas
+split --lines=qtd_line name_file
+
+# split pelo numero de partes 
+split -n l/number_parts name_file.txt -d name_file
+
+split -n l/number_parts name_file.csv -d name_file --additional-suffix .csv
+```
