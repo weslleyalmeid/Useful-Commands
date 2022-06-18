@@ -222,3 +222,22 @@ split -n l/number_parts name_file.txt -d name_file
 
 split -n l/number_parts name_file.csv -d name_file --additional-suffix .csv
 ```
+
+## Repetição
+```sh
+#!/bin/bash
+
+name="tempo"
+rm -rf $name.txt
+
+# faça o make compilar
+make compile
+
+for i in 1 2 4 6 8 16 24; do
+	# escreva o print no arquivo
+    printf "Threads {$i}\n" >> $name.txt
+	# salve a saida no arquivo
+    ./paralelo $i >> $name.txt
+    printf "\n" >> $name.txt
+done
+```
