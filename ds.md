@@ -33,6 +33,25 @@ df.apply(tuple, axis=1)
 df['new_col'] = list(zip(df.lat, df.long))
 ```
 
+### Types
+**Selecionando colunas categóricas e numéricas**
+```py
+target = 'flag_churn' # Variável resposta!
+to_remove = ['dt_ref', 'seller_city', 'seller_id', target] # Variáveis para retirar das analises
+
+features = df_abt.columns.tolist() # Todas variáveis do dataset
+for f in to_remove:
+    features.remove(f) # Remove uma variável por vez, das que devem ser removidas
+
+cat_features = df_abt[features].dtypes[ df_abt[features].dtypes == 'object' ].index.tolist()
+num_features = list( set(features) - set(cat_features) )
+```
+```py
+# também é válido combinar ambos argumentos.
+df.select_dtypes(include=['float64', 'bool'])
+df.select_dtypes(exclude=['int64'])
+```
+
 ## Diversos
 ### isort
 ```sh
