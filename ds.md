@@ -53,6 +53,12 @@ df.select_dtypes(exclude=['int64'])
 ```
 
 
+### Feature engineer
+**Transformando dados numéricos em dados categóricos**
+```py
+pd.qcut(microdados_enem.NU_NOTA_MT, q=4,labels=['baixa','média baixa','média alta','alta'])
+```
+
 ### Style
 [ref - pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html)
 ```py
