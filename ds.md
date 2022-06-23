@@ -52,6 +52,20 @@ df.select_dtypes(include=['float64', 'bool'])
 df.select_dtypes(exclude=['int64'])
 ```
 
+
+### Style
+[ref - pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html)
+```py
+# colorir toda linha que satisfaca a cláusula
+color = (df_production['Saldo_a_Produzir_Acab'] > 0).map({True: 'background-color: yellow', False: ''})
+df_production.style.apply(lambda s: color)
+
+# destacar o menor valor da coluna
+df_covid_rj.style.highlight_min(subset=['specific columns'])
+
+
+
+```
 ## Diversos
 ### isort
 ```sh
