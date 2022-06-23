@@ -68,8 +68,21 @@ df_production.style.apply(lambda s: color)
 
 # destacar o menor valor da coluna
 df_covid_rj.style.highlight_min(subset=['specific columns'])
+```
 
+### Breakline
+```py
+gdf_municipio\
+    .query("sigla_uf == 'SP'")\
+    .to_crs(crs="ESRI:102033")\
+    .assign(area = lambda df: df.geometry.area / 10000)
 
+# é necessário o parênteses
+(gdf_municipio
+    .query("sigla_uf == 'SP'")
+    .to_crs(crs="ESRI:102033")
+    .assign(area = lambda df: df.geometry.area / 10000)
+)
 
 ```
 ## Diversos
