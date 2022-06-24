@@ -33,6 +33,12 @@ df.apply(tuple, axis=1)
 df['new_col'] = list(zip(df.lat, df.long))
 ```
 
+
+### Drop
+```
+df.drop(df[df['Age'] < 25].index, inplace = True)
+```
+
 ### Types
 **Selecionando colunas categóricas e numéricas**
 ```py
