@@ -90,7 +90,26 @@ gdf_municipio\
     .assign(area = lambda df: df.geometry.area / 10000)
 )
 
+
+
 ```
+
+### Rename columns
+```
+# exemplo com método rename
+dict_columns = {
+    'old_name':'new_name'
+}
+
+df.rename(columns=dict_columns, inplace = True)
+
+
+# outros métodos
+df.columns = df.columns
+df.columns = df.columns.str.lower()
+df.columns = df.columns.str.replace('old_char', 'new_char')
+```
+
 ## Diversos
 ### isort
 ```sh
