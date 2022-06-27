@@ -102,7 +102,7 @@ df.reindex_axis(['Gold', 'Silver', 'Bronze'], axis=1)
 ```
 
 ### Rename columns
-```
+```py
 # exemplo com método rename
 dict_columns = {
     'old_name':'new_name'
@@ -115,6 +115,16 @@ df.rename(columns=dict_columns, inplace = True)
 df.columns = df.columns
 df.columns = df.columns.str.lower()
 df.columns = df.columns.str.replace('old_char', 'new_char')
+```
+
+### Duplicadas
+[ref - duplicated](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html)
+```py
+# return bool
+df.duplicated()
+
+# retorna as linhas duplicadas
+df[df.duplicated()]
 ```
 
 ## Diversos
