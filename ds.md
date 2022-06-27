@@ -90,8 +90,15 @@ gdf_municipio\
     .assign(area = lambda df: df.geometry.area / 10000)
 )
 
+```
 
+### Index
+```py
+# resetar índice
+df.reset_index()
 
+# reordenar algumas colunas
+df.reindex_axis(['Gold', 'Silver', 'Bronze'], axis=1)
 ```
 
 ### Rename columns
