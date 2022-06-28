@@ -58,6 +58,16 @@ df.select_dtypes(include=['float64', 'bool'])
 df.select_dtypes(exclude=['int64'])
 ```
 
+**Convertendo colunas**
+```py
+base_predicao_dez_jan['Dia_do_calendário_Ajustado'].astype('datetime64[ns]')
+
+# int64 é possível de converter colunas com valor NULL
+base_predicao_dez_jan['Dia_do_calendário_Ajustado'].astype('int64')
+
+# 
+pd.to_datetime(df['specific_column'])
+```
 
 ### Feature engineer
 **Transformando dados numéricos em dados categóricos**
