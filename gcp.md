@@ -26,6 +26,12 @@ bucket = storage_client.get_bucket(bucket_name)
 blobs_all = list(bucket.list_blobs())
 # Get blobs in specific subirectory
 blobs_specific = list(bucket.list_blobs(prefix='path/to/subfolder/'))
+
+
+# listando blobs com o prefixo
+blobs_all = bucket.list_blobs(prefix='path/to/subfolder/')
+set(blobs_all)
+blobs_all.prefixes
 ```
 
 ### 2 - GCloud
