@@ -2,7 +2,7 @@
 # Google Cloud Platform
 
 ### 1 - GSutil
-
+**Preparando ambiente**
 ```sh
 # verificar bucket
 gsutil ls gc://name_bucket
@@ -13,6 +13,19 @@ gsutil cp earthquakes.* gs://hello-world2022
 
 # ver head dos dados
 gsutil cat gs://movielens-demo/movies.csv | head
+```
+
+**Listandos blobs**
+```py
+from google.cloud import storage
+# Instantiates a client
+storage_client = storage.Client()
+# Get GCS bucket
+bucket = storage_client.get_bucket(bucket_name)
+# Get blobs in bucket (including all subdirectories)
+blobs_all = list(bucket.list_blobs())
+# Get blobs in specific subirectory
+blobs_specific = list(bucket.list_blobs(prefix='path/to/subfolder/'))
 ```
 
 ### 2 - GCloud
