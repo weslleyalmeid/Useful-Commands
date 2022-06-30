@@ -13,6 +13,9 @@ df.loc[(df['name_col'] == value) & (df['Data'].between(data_low, data_hight))]
 
 # atribuir valor
 df.loc[df['name_col'] == 0, ['name_col', 'name_col']] = 0
+
+# dataframe.isin pegar o que não está contido no is in
+df_new = df.loc[~(df['abacate'].isin(["X", "Y"]))]
 ```
 
 
