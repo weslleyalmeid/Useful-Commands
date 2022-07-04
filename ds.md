@@ -143,6 +143,20 @@ df[df.duplicated()]
 ### Similaridade de palavras
 [ref - thefuzz](https://github.com/seatgeek/thefuzz)
 
+- Aplicar o fuzzywuzzy em uma base de dados
+- Medir a similaridade de strings e fazer **Data Cleaning**
+- Outras medidas de score
+    - ratio
+    - partial_ratio
+    - token_sort_ratio
+    - token_set_ratio
+    
+```py
+def AplicaFuzzy(query, dados, metodo_ratio, score_corte):
+    return process.extractOne(query, choices=dados, scorer=metodo_ratio, score_cutoff=score_corte)
+
+dataset['descrição2'] = AplicaFuzzy('Iphone 6s', dataset.descrição, fuzz.ratio, 95)[0]
+```
 
 ## Diversos
 ### isort
