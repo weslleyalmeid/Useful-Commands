@@ -153,6 +153,7 @@ df[df.duplicated()]
     
 ```py
 def AplicaFuzzy(query, dados, metodo_ratio, score_corte):
+    # process.extract("new york jets", choices, limit=2)
     return process.extractOne(query, choices=dados, scorer=metodo_ratio, score_cutoff=score_corte)
 
 dataset['descrição2'] = AplicaFuzzy('Iphone 6s', dataset.descrição, fuzz.ratio, 95)[0]
