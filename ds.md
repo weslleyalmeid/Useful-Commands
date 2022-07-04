@@ -140,6 +140,10 @@ df.duplicated()
 df[df.duplicated()]
 ```
 
+### Similaridade de palavras
+[ref - thefuzz](https://github.com/seatgeek/thefuzz)
+
+
 ## Diversos
 ### isort
 ```sh
