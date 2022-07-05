@@ -105,6 +105,13 @@ gdf_municipio\
 
 ```
 
+### Move Columns
+[ref - pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.insert.html)
+```py
+col = df.pop('class')
+# df.insert(position, 'name_solumn', values, allow_duplicates=False)
+df.insert(0, col.name, col)
+```
 ### Index
 ```py
 # resetar índice
