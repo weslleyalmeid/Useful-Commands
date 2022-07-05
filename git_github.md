@@ -249,3 +249,88 @@ exemplo:
 para branchs:
 
 	git push origin :nome branch
+
+
+## Anotações úteis
+
+**Voltar estado anterior após pull**
+[ref - voltar estado anterior](https://stackoverflow.com/questions/1223354/undo-git-pull-how-to-bring-repos-to-old-state)
+```sh
+# encontrar hash do estado anterior
+git reflog
+# onde a0d3fe6 representa a hash do estado anterior
+git reset --hard a0d3fe6
+
+# se quiser voltar ao penúltimo commit
+git reset --hard HEAD~1
+
+# volta ao estado anterior e mantem a alteração
+git reset mixed HEAD~1
+```
+
+
+**Verificar se existe alteração no repo remoto**
+[ref - sobre branch origin/main](https://stackoverflow.com/questions/18137175/in-git-what-is-the-difference-between-origin-master-vs-origin-master)
+```sh
+# git fetch name_remote/name_branch, 
+# lembrando como origin/main é uma branch mesclado a branch origin e main
+
+git fetch origin/main
+
+
+# verificar apenas arquivos alterados, sem --name-only, aparece as diferenças dos arquivos
+git diff origin/main --name-only
+
+# se quiser mesclar alterações do remoto para local
+git merge origin/main
+
+# se não quiser verificar e já mesclar direto
+git pull
+```
+
+
+**Verificar Logs in Árvores**
+[ref - logs](https://stackoverflow.com/questions/1064361/unable-to-show-a-git-tree-in-terminal)
+```sh
+git log --graph --oneline --all
+git log --graph --decorate --pretty=oneline --abbrev-commit
+git log --oneline --decorate --all --graph
+```
+
+**Verificar arquivos ignorados pelo .gitignore**
+[ref - check ignore files](https://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore)
+```sh
+git status --ignored
+```
+
+**Verificar arquivos não trackeados**
+[ref - check ignore files](https://stackoverflow.com/questions/466764/git-command-to-show-which-specific-files-are-ignored-by-gitignore)
+```sh
+git status -uall
+```
+
+
+**Submodulos**
+```sh
+# criar submodulos
+touch .gitmodule
+git submodule add repo_clone
+git add repo_name
+git commit -m 'blabla'
+git push origin branch
+
+
+# clonar repo com submodulos
+git clone --recursive repo_url
+
+# pull
+git pull --recurse-submodules
+
+# para não especificar flag submodelus
+git config submodule.recurse true
+
+# inicializar submodule
+git update submodule --init 
+```
+
+

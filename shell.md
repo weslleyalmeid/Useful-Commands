@@ -191,3 +191,53 @@ comando pipe |
 
 	cat arquivo | tr a Z [joga arquivo como entrada para o tr onde substitui a por Z]
 	tr 'a' 'Z' < alunos.txt 
+
+## Copiar do diretório
+```sh
+# copiar pwd para o buffer do ctrl+c
+echo ${PWD} | xclip -selection clipboard
+
+# copiar dados do arquivo
+xclip -i -sel copy 'file.csv'
+
+# copiar diretorio incluindo filename
+readlink -f filename.csv
+
+# copiar filename path para o buffer do ctrl+c
+readlink -f filename.csv | xclip -selection clipboard
+
+```
+
+## Split em arquivos
+```sh
+
+# quantidade de linhas
+wc -l name_file
+
+# split pela quantidade de linhas
+split --lines=qtd_line name_file
+
+# split pelo numero de partes 
+split -n l/number_parts name_file.txt -d name_file
+
+split -n l/number_parts name_file.csv -d name_file --additional-suffix .csv
+```
+
+## Repetição
+```sh
+#!/bin/bash
+
+name="tempo"
+rm -rf $name.txt
+
+# faça o make compilar
+make compile
+
+for i in 1 2 4 6 8 16 24; do
+	# escreva o print no arquivo
+    printf "Threads {$i}\n" >> $name.txt
+	# salve a saida no arquivo
+    ./paralelo $i >> $name.txt
+    printf "\n" >> $name.txt
+done
+```
