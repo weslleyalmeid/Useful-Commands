@@ -103,8 +103,7 @@ def init_export(name_file, df):
 def main():
     
     DIR_ROOT = os.path.abspath('.')   
-    DIR_BASE = os.path.join(DIR_ROOT, 'REF04_03 - Leonardo')
-    # DIR_BASE = os.path.join(DIR_ROOT, 'REF04_04 - Leonardo')
+    DIR_BASE = os.path.join(DIR_ROOT, 'ABACATE')
     
 
     logging.debug('Diretorio ajustado')
@@ -117,19 +116,11 @@ def main():
 
     route_read = {
         'sheet_off':[
-                        # 'BD_ESTOQUE',
-                        # 'BD_DEMANDA',
-                        # 'POLITICA_ESTOQUE',
-                        # 'BD_CURVA_ABC',
-                        # 'BD_FATURAMENTO_BO_DIARIO',
-                        # 'BD_SAZONALIDADE_BRASIL',
-                        'ZSD036_ESTQ',
-                        # 'CARTEIRA_PRODUCAO',
-                        # 'DASHBOARD_NS'
+                        'ABACATE',
+                        'LARANJA'
                     ],
         'sheet_on':{ 
-                        'APOIO': ['PRODUTOS', 'CENTROS_DRP'],
-                        # 'BDs_ANALISES_GERAIS': ['ZSD150_ESTOQUE_DISP', 'ZLES002_PROGR_FAB', 'MB5T_TRANSITO']
+                        'LARANJA': ['ABACATE', 'LARANJA'],
                     }
     }
 
