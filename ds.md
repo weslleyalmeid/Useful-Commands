@@ -147,6 +147,18 @@ df.duplicated()
 df[df.duplicated()]
 ```
 
+### Drop
+[ref - drop rows](https://stackoverflow.com/questions/13851535/how-to-delete-rows-from-a-pandas-dataframe-based-on-a-conditional-expression)
+```py
+# drop rows
+# df.drop(df[<some boolean condition>].index)
+df.drop(df[df.score < 50].index, inplace=True)
+
+#drop columns
+df.drop(labels=['B', 'C'], axis=1)
+df.drop(columns=['B', 'C'])
+```
+
 ### Similaridade de palavras
 [ref - thefuzz](https://github.com/seatgeek/thefuzz)
 
