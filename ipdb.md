@@ -2,55 +2,66 @@
 
 #### Instalação
 [ipdb](https://pypi.org/project/ipdb/)
-~~~shell
+```shell
     pip install ipdb
-~~~
+```
 obs.: lembrando que é necessário ter o [ipython](https://pypi.org/project/ipython/) instalado
 
 ####  breakpoint - set_trace()
-~~~py
+```py
     import ipdb; i
 
     for url in self.start_urls:
         self.driver.get(url)
         
     pdb.set_trace()
-~~~
+```
 
 #### Help - h (help)
-~~~py
+```py
     ipdb> h
-~~~
+```
 
 #### Listar trecho - l (list)
-~~~py
+```py
     ipdb> l
-~~~
+```
 
 #### Avança para próxima linha -  n (next)
-~~~py
+```py
     ipdb> n
-~~~
+```
 
 #### Avança por bloco -  s (step)
-~~~py
+```py
     ipdb> s
-~~~
+```
 
 #### Avança por breakpoint -  c (continue)
-~~~py
+```py
     ipdb> c
-~~~
+```
 
 #### Verificar argumentos da função - a (arguments)
-~~~py
+```py
     ipdb> a
-~~~
+```
 
 ### Mostra o trajeto de execução - where  
-~~~py
+```py
     ipdb> where
-~~~
+```
+
+### Adicionar breakpoint - b (break)  
+```py
+    ipdb> b [number, number] or b number
+```
+
+### Remove breakpoint - clear and 
+```py 
+ipdb> clear [number, number] or clear number or clear 
+```
+
 #### Sair - q (quit)
 #### Referências
 [Debugging em python (sem IDE)](http://pythonclub.com.br/debugging-em-python-sem-ide.html)
