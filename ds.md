@@ -159,6 +159,26 @@ df.drop(labels=['B', 'C'], axis=1)
 df.drop(columns=['B', 'C'])
 ```
 
+### Concat
+```py
+df_final = pd.DataFrame(columns = ['abacate', 'laranja', 'limao', 'value'])
+
+for key in dict_aux.keys():  
+    row = {
+        'abacate': abacate[key],
+        'laranja': laranja[key],
+        'limao': limao[key],
+        'value': valu[key]e        
+    }
+    
+    
+    df_intermediaro = pd.DataFrame([row])
+    
+    df_final = pd.concat([df_final, df_intermediaro], ignore_index=True)
+```
+
+
+
 ### Similaridade de palavras
 [ref - thefuzz](https://github.com/seatgeek/thefuzz)
 
