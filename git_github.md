@@ -333,4 +333,24 @@ git config submodule.recurse true
 git update submodule --init 
 ```
 
+**detectar bug "automaticamente"**
+[ref - bisect](https://youtu.be/wYSqDiIvCw4)
+```sh
+# inicia a randomização da escolha do commit
+git bisect start
+
+# apos testar o commit atual, falar se é bad
+git bisect bad
+
+# quando encontrado commit sem erro, aplicar o good
+git bisect good
+
+# quando encontrado o commit com erro, mostrar as alterações
+git show
+
+
+# voltar para onde estava antes do start
+git bisect reset
+```
+
 
