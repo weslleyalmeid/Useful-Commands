@@ -43,6 +43,7 @@ run:
 ### Criando Env e executando com Env
 [ref - creat and execute env](https://earthly.dev/blog/python-makefile/)
 ```makefile
+# make VENV=my_venv run
 VENV = venv
 PYTHON = $(VENV)/bin/python3
 PIP = $(VENV)/bin/pip
