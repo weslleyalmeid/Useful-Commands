@@ -241,3 +241,11 @@ for i in 1 2 4 6 8 16 24; do
     printf "\n" >> $name.txt
 done
 ```
+
+
+## Listar diretórios 
+```
+tree /f > tree.txt
+tree /A > tree.txt
+
+```
