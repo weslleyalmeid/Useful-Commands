@@ -198,6 +198,29 @@ def AplicaFuzzy(query, dados, metodo_ratio, score_corte):
 dataset['descrição2'] = AplicaFuzzy('Iphone 6s', dataset.descrição, fuzz.ratio, 95)[0]
 ```
 
+### Exemplo de Save Model
+[ref - teomewhy](https://github.com/TeoCalvo/dtona/blob/master/src/ep09/model_churn/modeling/train/modelling.py)
+```py
+# Salvando o modelo
+model_data = pd.Series( {
+    'num_features': num_features,
+    'cat_features': cat_features,
+    'onehot': onehot,
+    'features_fit':features_fit,
+    'model':rf,
+    'acc_oot':auc_oot_rf,
+    'acc_train':auc_train_rf,
+    'acc_test':auc_test_rf,
+    'cutoff':0.7
+} )
+
+model_data.to_pickle( os.path.join(MODEL_DIR, 'random_forest.pkl') )
+model = pd.read_pickle(os.path.join(MODELS_DIR, "model_churn.pkl"))
+model['model']
+```
+
+
+
 ## Diversos
 ### isort
 ```sh
