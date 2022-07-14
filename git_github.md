@@ -355,6 +355,9 @@ git bisect reset
 
 **Problemas com Tracking**
 ```sh
+git push -u <remote> <branch>
+git push -u origin weslley
+
 git branch --set-upstream-to=origin/<nome_branch_remota> nome_branch__local
 git branch --set-upstream-to=origin/weslley weslley
 ```
