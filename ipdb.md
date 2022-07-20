@@ -55,11 +55,21 @@ obs.: lembrando que é necessário ter o [ipython](https://pypi.org/project/ipyt
 ### Adicionar breakpoint - b (break)  
 ```py
     ipdb> b [number, number] or b number
+
+    # listar breakpoints ativos
+    ipdb> b
 ```
 
-### Remove breakpoint - clear and 
+### Remove breakpoint - clear and cl
 ```py 
 ipdb> clear [number, number] or clear number or clear 
+```
+
+### Ignorar breakpoint - ignore 
+```py 
+# bpnumber = index no b
+# count = quantidade de vezes que quer ignorar
+ipdb> ignore bpnumber count
 ```
 
 #### Sair - q (quit)
