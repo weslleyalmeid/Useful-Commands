@@ -169,10 +169,20 @@ UNINDO OS BRANCHES: unir o trabalho o que cada um fez
 
     CONTRA:	- Perde a ordem cronológica
 
+Quando quero fazer o merge/rebase
+- mudo para branch que quero levar para o status "novo"
+por exemplo, se a branch main e abacate estão trabalhando no mesmo projeto e o abacate adicionou uma nova feature, preciso que a main avance para esse novo estado, assim.
+```sh
+git checkout main ou git branch main
+
+git merge abacate
+```
+Desta forma a branch atual *main* irá apontar para o mesmo ponteiro da branch *abacate*, ou seja, uniu main com abacate.
+
 **MERGE E REBASE NA PRÁTICA**:
 
     merge = git merge <nome do branch>
-    rebase = gitrebase <nome do branch>
+    rebase = git rebase <nome do branch>
 ... Sempre que possível utilizar rebase, mas para casos
 de pull request, se faz necessário o merge.
 	
