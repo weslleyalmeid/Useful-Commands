@@ -73,7 +73,16 @@ ipdb> ignore bpnumber count
 ```
 
 #### Sair - q (quit)
+```py 
+ipdb> q
+```
+
 #### Referências
+
 [Debugging em python (sem IDE)](http://pythonclub.com.br/debugging-em-python-sem-ide.html)
+
 [Debugando código Python com ipdb](https://www.youtube.com/watch?v=bUqsUrEEg44)
+
 [Live de Python #5 - Usando o Python debugger](https://www.youtube.com/watch?v=7GnHDfV6KQ8)
+
+[ipdb-cheat-sheet](https://wangchuan.github.io/coding/2017/07/12/ipdb-cheat-sheet.html)
