@@ -210,7 +210,7 @@ task_concurrency - Este é o número possível de execuções do DAG em paralelo
 
 
 ## Airflow API
-[ref - documentatiion](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html)
+[ref - documentation](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html)
 
 [ref - astromer](https://youtu.be/WTR-YT5imrY?t=1209)
 
@@ -224,13 +224,12 @@ auth_backends = airflow.api.auth.backend.basic_auth
 access_control_allow_headers = origin, content-type, accept
 access_control_allow_methods = POST, GET, OPTIONS, DELETE
 
-# executar DAG com argumento {"execution_date": "2022-07-20T23:14:23.893707+00:00"}, POST
-# http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns
-
 # testando API, obtendo todos as execuções da dag
 curl -X GET http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns --user "admin:admin"
 
 
+# executar DAG com argumento {"execution_date": "2022-07-20T23:14:23.893707+00:00"}, POST
+# http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns
 
 # Executando DAG pela API
 # curl -X PATCH 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \
@@ -252,8 +251,11 @@ import json
 
 url = 'http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns'
 headers={'Content-Type': 'application/json'}
+
+# "execution_date" também funciona, mas a preferência é logical_date
+# caso queira passar paramentros adicione "conf": { } ao payload
 payload = json.dumps({
-  "execution_date": "2022-07-20T23:30:24.893707+00:00"
+  "logical_date": "2022-07-20T23:30:24.893707+00:00",
 })
 auth= HTTPBasicAuth('admin', 'admin')
 response = requests.post(url=url, headers=headers, data=payload, auth=auth)
