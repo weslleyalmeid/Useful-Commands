@@ -209,23 +209,30 @@ task_concurrency - Este é o número possível de execuções do DAG em paralelo
 ```
 
 
-## [Airflow API](https://youtu.be/WTR-YT5imrY?t=1209)
+## Airflow API
+[ref - documentatiion](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html)
+
+[ref - astromer](https://youtu.be/WTR-YT5imrY?t=1209)
+
+No arquivo *airflow.cfg* ajuste as seguintes variáveis.
 ```sh
 
 # auth_backends mudar forma de autenticação
 auth_backends = airflow.api.auth.backend.basic_auth
 
-
+# controle de cabeçalhos e métodos
 access_control_allow_headers = origin, content-type, accept
 access_control_allow_methods = POST, GET, OPTIONS, DELETE
 
 # executar DAG com argumento {"execution_date": "2022-07-20T23:14:23.893707+00:00"}, POST
 # http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns
 
+# testando API, obtendo todos as execuções da dag
 curl -X GET http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns --user "admin:admin"
 
 
 
+# Executando DAG pela API
 # curl -X PATCH 'https://example.com/api/v1/dags/{dag_id}?update_mask=is_paused' \
 # -H 'Content-Type: application/json' \
 # --user "username:password" \
@@ -235,10 +242,9 @@ curl -X GET http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns --user "admin:ad
 
 
 curl -X POST 'http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns' -H 'Content-Type:application/json' --user "admin:admin" -d '{"execution_date": "2022-07-20T23:20:23.893707+00:00"}'
-
 ```
 
-Exemplo com python
+Executando DAG com python
 ```py
 import requests
 from requests.auth import HTTPBasicAuth
