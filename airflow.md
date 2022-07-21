@@ -236,7 +236,20 @@ curl -X GET http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns --user "admin:ad
 
 curl -X POST 'http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns' -H 'Content-Type:application/json' --user "admin:admin" -d '{"execution_date": "2022-07-20T23:20:23.893707+00:00"}'
 
+```
 
+Exemplo com python
+```py
+import requests
+from requests.auth import HTTPBasicAuth
+import json
 
-
+url = 'http://0.0.0.0:8080/api/v1/dags/twitter_dag/dagRuns'
+headers={'Content-Type': 'application/json'}
+payload = json.dumps({
+  "execution_date": "2022-07-20T23:30:24.893707+00:00"
+})
+auth= HTTPBasicAuth('admin', 'admin')
+response = requests.post(url=url, headers=headers, data=payload, auth=auth)
+print(response.text)
 ```
