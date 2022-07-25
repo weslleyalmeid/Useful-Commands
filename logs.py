@@ -1,3 +1,5 @@
+# https://docs.python.org/3/library/logging.html
+
 import os.path                                      # lib para obter diretorios
 import glob                                         # lib de pegar todos os arquivos de pasta especifica
 import pandas as pd
@@ -8,8 +10,6 @@ from logging import basicConfig                     # configuracao do logging
 from logging import DEBUG, INFO                     # levels
 from logging import FileHandler, StreamHandler      # Mostrar log no terminal e pode salver em N arquivos
 from logging import Formatter, Filter               # Personalizar levels no handler
-
-
 
 # format_file_handler = Formatter(
 #     '%(levelname)s:%(asctime)s:%(lineno)d:%(message)s'
@@ -37,6 +37,9 @@ basicConfig(
     ]
 )
 
+
+# utilizado em outras arquivos, para obter os logs ajustados
+log = logging.getLogger(__name__)
 
 def step_line(name_file, title=None):
 
