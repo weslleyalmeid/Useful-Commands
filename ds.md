@@ -177,7 +177,11 @@ for key in dict_aux.keys():
     df_final = pd.concat([df_final, df_intermediaro], ignore_index=True)
 ```
 
-
+### Limitar valores Lower ou Upper 
+```py
+cols = ['a', 'b']
+df[cols] = df[cols].clip(lower=0, upper=10)
+```
 
 ### Similaridade de palavras
 [ref - thefuzz](https://github.com/seatgeek/thefuzz)
