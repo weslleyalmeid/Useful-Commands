@@ -223,6 +223,53 @@ model = pd.read_pickle(os.path.join(MODELS_DIR, "model_churn.pkl"))
 model['model']
 ```
 
+### Pipeline e Column Tranformer
+[ref - Nicholas Renotte](https://github.com/nicknochnack/ColumnTransformerPractice)
+
+```py
+
+from sklearn.pipeline import make_pipeline, Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+
+# faz o Pipeline automaticamente
+pipeline = make_pipeline(StandardScaler(), RandomForestRegressor())
+pipeline.fit(X,y)
+
+# Pipeline customizado
+custom_pipeline = Pipeline([('scaling', StandardScaler()),('rfmodel', RandomForestRegressor())])
+
+# Numeric Features
+numeric_features = select_df.drop('SalePrice', axis=1).select_dtypes(exclude='object').columns
+numeric_pipeline = Pipeline([('scaler', StandardScaler())])
+
+
+# Categorical Features
+categorical_features = select_df.select_dtypes('object').columns
+categorical_pipeline = Pipeline([('onehot', OneHotEncoder())])
+
+# ColumnTransformer([name_action, pipeline, features])
+transformer = ColumnTransformer([
+    ('numeric_preprocessing', numeric_pipeline, numeric_features), 
+    ('categorical_preprocessing', categorical_pipeline, categorical_features)
+    ])
+
+# Full pipeline
+ml_pipeline = Pipeline([
+    ('all_column_preprocessing', transformer),
+    ('randforestclassifier', RandomForestRegressor())
+    ])
+
+# Train
+ml_pipeline.fit(X, y)
+
+# Predict
+ml_pipeline.predict(X)
+```
+
 
 
 ## Diversos
