@@ -210,4 +210,8 @@ poetry update
 
 # atualizar poetry
 poetry self update
+
+
+# requirements no formato antigo
+poetry export > requirements.txt
 ```
