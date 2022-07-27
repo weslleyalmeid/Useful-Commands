@@ -34,7 +34,7 @@ $$
 **F1 Score:** é o equilíbrio entre a sensibilidade e a precisão, sendo a média harmônica entre as duas métricas.
 
 $$
-f1\_score = 2 * \frac{precision * recall}{precision + recall}
+f1\\_{score} = 2 * \frac{precision * recall}{precision + recall}
 $$
 
 
