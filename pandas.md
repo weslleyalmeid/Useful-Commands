@@ -220,7 +220,64 @@ df[cols] = df[cols].clip(lower=0, upper=10)
 ## Pipe pandas
 [ref - pipe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pipe.html)
 ```py
+# Nested functions
+abacate(
+      laranja(
+        limao(
+            add_melancia(feira(items)),
+            "address"
+            ),
+        "credit_card"
+        )
+    )
 
+# método tradicional
+feiras = feira(items)
+fruit_melancia = add_melancia(feiras)
+fruit_limao = limao(fruit_melancia, "address")
+fruit_laranja = laranja(fruit_limao, "credit_card")
+feira completa = abacate(fruit_laranja)
+
+# equivalente
+items.pipe(feira)
+     .pipe(add_melancia)
+     .pipe(limao, "address")
+     .pipe(laranja, "credit_card")
+     .pipe(abacate)
+```
+
+
+## np.select + .isin e np.where
+[ref - Aidan Cooper](https://www.aidancooper.co.uk/pandas-anti-patterns/)
+
+Combinação para substituir o apply em algumas situações
+```py
+def get_prod_country_rank(df_):
+    vcs = df_["prod_country1"].value_counts()
+
+    # numpy.select(condlist, choicelist, default=0)
+    # condilist referente a ordem do choicelist por exe: [:3] -> top3
+    # se posicação da condição no condlist verdadeira, atribua o valor diretamente relacionado no choicelist
+    return np.select(
+        condlist=(
+            df_["prod_country1"].isin(vcs.index[:3]),
+            df_["prod_country1"].isin(vcs.index[:10]),
+            df_["prod_country1"].isin(vcs.index[:20]),
+        ),
+        choicelist=("top3", "top10", "top20"),
+        default="other"
+    )
+
+df = df.assign(prod_country_rank=lambda df_: get_prod_country_rank(df_))
+```
+
+```py
+# np.where(condition, operation, broadcast)
+df = df.assign(
+    adjusted_score=lambda df_: np.where(
+        df_["release_year"] > 2016, df_["imdb_score"] - 1, df_["imdb_score"]
+    )
+)
 ```
 
 -----------------------
