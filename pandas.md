@@ -280,6 +280,34 @@ df = df.assign(
 )
 ```
 
+## Colunas vazias para concat forçando o type
+Esse processo deixa o concat mais lento, tempo similar ao append
+```py
+    cols = {
+        'Centro': pd.Series(dtype = 'int'),
+        'Codigo_Pai_Int()egrado': pd.Series(dtype = 'str'),
+        'Ano': pd.Series(dtype = 'int'),
+        'Mes': pd.Series(dtype = 'int'),
+        'Linha_Produto': pd.Series(dtype = 'str'),
+        'ABC': pd.Series(dtype = 'str'),
+        'Politica_Dias': pd.Series(dtype = 'float'),
+        'Estoque_Seguranca': pd.Series(dtype = 'float'),
+        'RF_Demanda': pd.Series(dtype = 'float'),
+        'Ind_Acelerado': pd.Series(dtype = 'float'),
+        'Volume_Real_Faturado': pd.Series(dtype = 'float'),
+        'Dia': pd.Series(dtype = 'float'),
+        'Demanda_Anterior': pd.Series(dtype = 'float'),
+        'Demanda': pd.Series(dtype = 'float'),
+        'Estoque_Ideal': pd.Series(dtype = 'float'),
+        'Cob_Dias_Estoque_Atual': pd.Series(dtype = 'float'),
+        'Dias_Faltante_Politica': pd.Series(dtype = 'float'),
+        'Check_Pedido_Continuo': pd.Series(dtype = 'str'),
+        'Pedido': pd.Series(dtype = 'float'),
+        'Data_Emissao_Pedido': pd.Series(dtype = 'str'),
+        'Previsao_Estoque': pd.Series(dtype = 'float')
+    }
+    df_final = pd.DataFrame(cols)
+```
 -----------------------
 
 ## Mínimo Pandas
