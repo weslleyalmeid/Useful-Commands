@@ -278,6 +278,14 @@ git reset --hard HEAD~1
 git reset mixed HEAD~1
 ```
 
+**Voltar a commit anterior**
+```sh
+# encontrar hash do commit
+git log
+
+# criar branch apontando para o commit
+git checkout hash_commit
+```
 
 **Verificar se existe alteração no repo remoto**
 [ref - sobre branch origin/main](https://stackoverflow.com/questions/18137175/in-git-what-is-the-difference-between-origin-master-vs-origin-master)
