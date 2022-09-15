@@ -202,7 +202,7 @@ for key in dict_aux.keys():
         'abacate': abacate[key],
         'laranja': laranja[key],
         'limao': limao[key],
-        'value': valu[key]e        
+        'value': valu[key]   
     }
     
     
