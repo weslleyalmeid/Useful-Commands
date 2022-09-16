@@ -89,6 +89,13 @@ Se Já commitou
 	hard: ignora tudo e apaga o commit
 	git reset --hard
 ~~~
+
+
+Se fazer pull local e der conflitos:
+```
+git merge --abort
+```
+
 **PARA CONECTAR O GITHUB:**
 
 primeiro se cria a chave ssh no computador, material está no favorito do google chrome.
@@ -292,9 +299,7 @@ git checkout hash_commit
 ```sh
 # git fetch name_remote/name_branch, 
 # lembrando como origin/main é uma branch mesclado a branch origin e main
-
 git fetch origin/main
-
 
 # verificar apenas arquivos alterados, sem --name-only, aparece as diferenças dos arquivos
 git diff origin/main --name-only
@@ -365,7 +370,6 @@ git bisect good
 
 # quando encontrado o commit com erro, mostrar as alterações
 git show
-
 
 # voltar para onde estava antes do start
 git bisect reset
