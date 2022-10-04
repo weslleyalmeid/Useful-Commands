@@ -97,5 +97,8 @@
 
 	os.linesep
 
-
-
+**Obter arquivos do diretório**
+```py
+for root, dirs, files in os.walk('path', topdown=True, onerror=None, followlinks=False):
+	...
+```
