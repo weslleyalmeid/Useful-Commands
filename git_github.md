@@ -384,3 +384,14 @@ git branch --set-upstream-to=origin/<nome_branch_remota> nome_branch__local
 git branch --set-upstream-to=origin/weslley weslley
 ```
 
+
+**Pasta inacessível**
+[ref - stackoverflow](https://pt.stackoverflow.com/questions/209498/pasta-inacess%C3%ADvel-no-github)
+
+Erro quando é realizado o push com .git aninhado
+```sh
+git rm --cached name_folder
+git add .
+git commit
+git push origin name_branch
+```
