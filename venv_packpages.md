@@ -50,6 +50,12 @@ conda env list
 conda env remove -n name_env
 ```
 
+## Requirements
+
+```sh
+while read requirement; do pip show $requirement | grep Version; done < requirements.txt
+```
+
 
 # Packpages
 
