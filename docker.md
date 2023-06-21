@@ -86,8 +86,11 @@ docker container rm CONTAINER_ID
 # ativado
 docker container rm -f CONTAINER_ID
 
-#deletando todos containers
+# deletando todos containers
 docker container rm -f $(docker container ls -a -q)
+
+# deletando containers none
+docker images | grep "<none>" | awk '{print $3}' | xargs docker rmi -f
 ```
 
 **Verificando estatísticas do container CPU, I/O, Memória e Redes**
