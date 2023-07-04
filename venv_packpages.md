@@ -128,6 +128,8 @@ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poet
 
 # iniciar projeto, vai criar uma pasta com alguns diretórios
 poetry new name
+# inicia um projeto minimo, no diretorio atual
+poetry init --no-interaction
 
 # para env ficar no local
 poetry config virtualenvs.in-project true
