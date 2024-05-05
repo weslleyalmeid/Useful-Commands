@@ -113,3 +113,94 @@ GROOT_DIR = os.path.dirname(os.path.abspath('..'))
 TABLE_DIR = os.path.join(dest, "{table_name}", f"process_date={process_date}")
 TABLE_DIR.format(table_name="tweet")
 ```
+
+## Grid/Random Search
+
+```py
+
+
+def train_model(x, y):
+    models = [
+            {
+                'classifier': [SGDClassifier(random_state=42, alpha=0.0001, learning_rate='optimal', loss='log_loss')],
+                'embedding': [TfidfVectorizer(ngram_range=(1,2), use_idf=False)],
+                'embedding__use_idf': [True, False],
+                'embedding__ngram_range' : [(1,1), (1,2)],
+                'embedding__norm': ['l1', 'l2'],
+                'classifier__loss' : ['log', 'modified_huber', 'huber'],
+                'classifier__penalty' : ['l2', 'l1', 'none'],
+                'classifier__learning_rate' : ['adaptive', 'optimal', 'constant', 'invscaling'],
+                'classifier__alpha' : [0.0001, 0.001, 0.01, 0.1]
+                'transform__remove_stop_words': [True, False],
+            },
+            {
+                'classifier': [SGDClassifier(random_state=42, alpha=0.0001, learning_rate='optimal', loss='log_loss')],
+                'embedding': [FastTextUnsupervisedTransformer(model_path=model_path)],
+                'classifier__loss' : ['hinge', 'log_loss', 'log', 'modified_huber', 'huber'],
+                'classifier__penalty' : ['elasticnet', 'l2', 'l1', 'none'],
+                'classifier__learning_rate' : ['adaptive', 'optimal', 'constant', 'invscaling'],
+                'classifier__alpha' : [0.0001, 0.001, 0.01, 0.1]
+                'transform__remove_stop_words': [True, False],
+            },
+    ]
+
+    pipeline = Pipeline([
+        ('transform', TransformText()),
+        ('embedding', 'passthrough'),
+        ('classifier', 'passthrough')
+    ])
+
+
+    grid_search = RandomizedSearchCV(pipeline, models, scoring='f1_macro', cv=5, n_iter=10, error_score='raise', verbose=3, random_state=42)
+    grid_search.fit(x, y)
+    return grid_search
+
+```
+
+
+## Custom Scikit Pipeline
+
+```py
+
+from sklearn.base import BaseEstimator, TransformerMixin
+
+class FastTextUnsupervisedTransformer(BaseEstimator, TransformerMixin):
+  """
+  Custom transformer for training a fastText unsupervised model.
+  """
+  def __init__(self, model_path, model_params=None):
+    """
+    Args:
+      text_column (str): The name of the text column in the DataFrame.
+      model_params (dict): Parameters for the fastText model.
+    """
+    self.model_params = model_params
+    self.model_path = model_path
+    self.model = None  # Store the trained model
+
+  def fit(self, X, y=None):
+    """
+    Preprocesses text data and trains the fastText model.
+
+    Args:
+      X (pd.DataFrame): The input DataFrame.
+      y (pd.Series, optional): Ignored in this unsupervised setting.
+    """
+    self.model = fasttext.load_model(self.model_path)
+    fasttext.util.reduce_model(self.model, 10)
+    return self
+
+  def transform(self, X, y=None):
+    """
+    This method is not applicable for unsupervised training.
+    """
+    if isinstance(X, Series):
+      X = X.apply(self._apply_embedding)
+      X = np.array([np.array(xi) for xi in X])
+      return X
+    return X
+
+  def _apply_embedding(self, X):
+      return self.model[X]
+
+```
