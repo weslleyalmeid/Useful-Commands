@@ -395,3 +395,10 @@ git add .
 git commit
 git push origin name_branch
 ```
+
+
+**Descartar mudanças em arquivos não comitados**
+
+```sh
+git checkout -- <filename>
+```
