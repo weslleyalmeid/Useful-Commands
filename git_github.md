@@ -402,3 +402,50 @@ git push origin name_branch
 ```sh
 git checkout -- <filename>
 ```
+
+
+### Rebase an Out-of-Date PR Branch in Git
+[ref - How to Rebase an Out-of-Date PR Branch in Git: A Step-by-Step Guide](https://www.linkedin.com/pulse/how-rebase-out-of-date-pr-branch-git-step-by-step-guide-sushil-kundu-lfhaf/)
+
+Step 1: Checkout the Base Branch
+```sh
+git checkout main
+```
+
+Step 2: Pull the Latest Changes
+```sh
+git pull origin main
+```
+
+Step 3: Resolve Any Conflicts
+
+If there are any conflicts in the local base branch, resolve them. If there are no conflicts, proceed to the next step.
+
+Step 4: Checkout Your PR Branch
+Switch back to your PR branch that needs to be rebased.
+
+```sh
+git checkout pr-branch
+```
+
+Step 5: Rebase Your PR Branch
+Rebase your PR branch with the latest changes from the base branch.
+
+```sh
+git rebase develop
+```
+
+During the rebase, you might encounter conflicts. If you do, resolve them and continue the rebase process using:
+```sh
+git add . 
+git rebase --continue
+```
+
+Step 6: Push the Rebases Code
+Finally, push the rebased code to your PR branch. If the push fails, use the --force flag to force push the changes.
+```sh
+git push origin pr-branch
+# If it fails, use:
+git push origin pr-branch --force
+```
+
