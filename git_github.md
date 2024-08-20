@@ -432,7 +432,7 @@ Step 5: Rebase Your PR Branch
 Rebase your PR branch with the latest changes from the base branch.
 
 ```sh
-git rebase develop
+git rebase main
 ```
 
 During the rebase, you might encounter conflicts. If you do, resolve them and continue the rebase process using:
