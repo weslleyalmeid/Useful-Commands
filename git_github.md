@@ -449,3 +449,25 @@ git push origin pr-branch
 git push origin pr-branch --force
 ```
 
+**Commit Patch e Stash**
+
+```sh
+# Patch (y-yes, n-no) for add just specific line
+git add -p path_file
+git commit -m "fix:..."
+
+# Hidden adjusts
+git stash
+
+# Change main and pull
+git checkout main
+git pull origin main
+
+# Change branch, merge and push
+git checkout NAME_BRANCH
+git merge main
+git push origin NAME_BRANCH
+
+# Return adjusts
+git stash pop
+```
