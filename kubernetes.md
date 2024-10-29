@@ -45,3 +45,32 @@ verificar se pod está em execução
 ```sh
 kubectl get pods
 ```
+
+### criar service
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: goapp
+spec:
+  selector:
+    app: goapp
+  ports:
+    - port: 8888
+      targetPort: 8888
+```
+
+```sh
+kubectl apply -f k8s
+```
+
+
+```sh
+kubectl get service 
+```
+
+```sh
+kubectl delete pod node-debugger-mynode-pdx84 --now
+```
+
