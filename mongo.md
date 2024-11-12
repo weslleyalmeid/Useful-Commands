@@ -19,6 +19,8 @@ show collections
 
 Insert
 ```sh
+# coll = name of the collection
+# db.<collection name>.insertOne({name: "Max"})
 db.coll.insertOne({name: "Max"})
 ```
 
