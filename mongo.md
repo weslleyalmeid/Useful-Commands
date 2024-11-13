@@ -44,3 +44,11 @@ db.coll.find({"year": {$ne: 1970}})
 db.coll.find({"year": {$in: [1958, 1959]}})
 db.coll.find({"year": {$nin: [1958, 1959]}})
 ```
+
+
+Python SKD mongo
+
+```py
+# To avoid ! in the title
+kwargs["key"] = {"$not": {"$regex": "/!/"}}
+```
